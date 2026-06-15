@@ -1,0 +1,104 @@
+{
+  "site": {
+    "title": "陈鑫鹏 | AI Agent 开发工程师",
+    "description": "陈鑫鹏的个人作品集网站"
+  },
+  "nav": {
+    "home": "首页",
+    "about": "关于我",
+    "projects": "项目作品",
+    "contact": "联系我"
+  },
+  "hero": {
+    "greeting": "你好，我是",
+    "name": "陈鑫鹏",
+    "title": "AI Agent 开发工程师",
+    "tagline": "专注于 AI Agent 架构设计与全栈工程，热爱用技术创造有温度的产品。",
+    "ctaProjects": "查看项目",
+    "ctaContact": "联系我",
+    "ctaResume": "下载简历"
+  },
+  "projects": {
+    "title": "项目作品",
+    "subtitle": "每一个项目都是一次成长的印记",
+    "desktopPet": {
+      "name": "DesktopPet — AI 智能体桌面助手",
+      "tagline": "基于 WPF + MiMo AI API 的 AI Agent 全流程实践项目",
+      "description": "DesktopPet 是一个智能桌面宠物应用，以 Warframe 角色 Ordis 为原型，实现了完整的 AI Agent 自主行为系统。宠物能感知用户行为、主动发起对话、识别语音指令，并拥有独特的 Glitch 人格系统。",
+      "highlights": {
+        "agent": "Agent 自主行为",
+        "agentDesc": "感知层（应用监控/离开检测）→ 决策层（主动对话引擎/RAG）→ 执行层（TTS/Glitch）三级流水线",
+        "glitch": "Glitch 人格系统",
+        "glitchDesc": "三层人格，10 种触发条件独立管理，AI 生成台词 + 预设回退",
+        "eventbus": "EventBus 架构",
+        "eventbusDesc": "11 种事件类型的发布/订阅总线，模块间零直接依赖",
+        "proactive": "主动对话引擎",
+        "proactiveDesc": "6 种触发器 + RAG 增强上下文的 LLM Prompt 生成",
+        "voice": "本地语音识别",
+        "voiceDesc": "Whisper 本地 STT + MiMo TTS（三种语音预设）+ Windows TTS 降级",
+        "achievement": "成就系统",
+        "achievementDesc": "事件驱动成就检测，3 种条件处理器"
+      }
+    },
+    "eshop": {
+      "name": "e数码商城 — 微服务电商平台",
+      "tagline": "Spring Cloud 微服务 + Vue 2 前后端分离的全功能电商系统",
+      "description": "e数码商城是一个面向数码产品的在线交易平台，涵盖全新商品、二手交易、数码回收、设备租赁四大业务线。采用 Spring Cloud 微服务架构，实现用户、商品、订单三大服务的解耦与独立部署。",
+      "highlights": {
+        "multicategory": "多品类电商",
+        "multicategoryDesc": "全新数码产品浏览、购物车、订单管理",
+        "used": "二手交易 + 回收",
+        "usedDesc": "二手发布销售 + 回收报价成交完整生态",
+        "compare": "商品参数对比",
+        "compareDesc": "最多 4 个商品 JSON 参数自动对比，差异高亮",
+        "auth": "双重认证",
+        "authDesc": "API 网关 JWT 全局过滤 + 服务内部二次验证"
+      }
+    },
+    "stats": {
+      "modules": "项目模块",
+      "sourceCode": "源代码行数",
+      "testCode": "测试代码行数",
+      "characters": "角色系统",
+      "apiEndpoints": "API 端点",
+      "javaFiles": "Java 文件"
+    },
+    "techStack": "技术栈",
+    "viewOnGithub": "在 GitHub 上查看",
+    "backToList": "← 返回项目列表"
+  },
+  "skills": {
+    "title": "技能树",
+    "subtitle": "持续学习，持续成长",
+    "levelLabels": {
+      "master": "精通",
+      "proficient": "熟练",
+      "familiar": "了解",
+      "learning": "学习中"
+    },
+    "categories": {
+      "aiAgent": "AI Agent 开发",
+      "languages": "编程语言",
+      "frameworks": "框架 & 工具",
+      "databases": "数据库"
+    }
+  },
+  "contact": {
+    "title": "联系我",
+    "subtitle": "期待与你交流",
+    "email": "发送邮件",
+    "emailDesc": "直接发送邮件给我，我会尽快回复",
+    "sendEmail": "一键发送",
+    "github": "GitHub",
+    "githubDesc": "查看我的开源项目和代码",
+    "visitGithub": "访问主页",
+    "resume": "简历下载",
+    "resumeDesc": "下载我的最新简历 (PDF)",
+    "downloadResume": "下载简历",
+    "jobTitle": "求职意向",
+    "jobRole": "应届生 | AI Agent 开发 | 全栈工程"
+  },
+  "footer": {
+    "copyright": "版权所有"
+  }
+}

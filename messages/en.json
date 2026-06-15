@@ -1,0 +1,104 @@
+{
+  "site": {
+    "title": "Chen Xinpeng | AI Agent Developer",
+    "description": "Chen Xinpeng's Portfolio"
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+  "hero": {
+    "greeting": "Hi, I'm",
+    "name": "Chen Xinpeng",
+    "title": "AI Agent Developer",
+    "tagline": "Focused on AI Agent architecture and full-stack engineering. I build products with warmth through technology.",
+    "ctaProjects": "View Projects",
+    "ctaContact": "Contact Me",
+    "ctaResume": "Download Resume"
+  },
+  "projects": {
+    "title": "Projects",
+    "subtitle": "Every project is a milestone of growth",
+    "desktopPet": {
+      "name": "DesktopPet — AI Agent Desktop Companion",
+      "tagline": "Full-cycle AI Agent practice project built with WPF + MiMo AI API",
+      "description": "DesktopPet is an intelligent desktop pet application featuring the Warframe character Ordis. It implements a complete AI Agent autonomous behavior system — sensing user activity, initiating proactive dialogue, recognizing voice commands, and featuring a unique Glitch personality system.",
+      "highlights": {
+        "agent": "Agent Autonomy",
+        "agentDesc": "Perception (app monitoring/away detection) → Decision (proactive dialogue engine/RAG) → Execution (TTS/Glitch) pipeline",
+        "glitch": "Glitch Personality",
+        "glitchDesc": "Three-layer personality, 10 trigger conditions with independent cooldown management",
+        "eventbus": "EventBus Architecture",
+        "eventbusDesc": "11 event types with pub/sub bus, zero direct dependencies between modules",
+        "proactive": "Proactive Dialogue Engine",
+        "proactiveDesc": "6 trigger types + RAG-enhanced context for LLM prompt generation",
+        "voice": "Local Voice Recognition",
+        "voiceDesc": "Whisper local STT + MiMo TTS (3 voice presets) + Windows TTS fallback",
+        "achievement": "Achievement System",
+        "achievementDesc": "Event-driven achievement detection with 3 condition handlers"
+      }
+    },
+    "eshop": {
+      "name": "eShop — Microservices E-commerce Platform",
+      "tagline": "Full-featured e-commerce system with Spring Cloud microservices + Vue 2",
+      "description": "eShop is an online trading platform for digital products, covering new products, second-hand trading, device recycling, and equipment rental. Built with Spring Cloud microservices architecture, achieving decoupled services for users, products, and orders.",
+      "highlights": {
+        "multicategory": "Multi-category E-commerce",
+        "multicategoryDesc": "New product browsing, shopping cart, order management",
+        "used": "Second-hand + Recycling",
+        "usedDesc": "Complete ecosystem for used sales, recycling quotes, and transactions",
+        "compare": "Product Comparison",
+        "compareDesc": "Up to 4 products JSON parameter comparison with difference highlighting",
+        "auth": "Dual Authentication",
+        "authDesc": "API Gateway JWT filter + service-level interceptor verification"
+      }
+    },
+    "stats": {
+      "modules": "Modules",
+      "sourceCode": "Source Lines",
+      "testCode": "Test Lines",
+      "characters": "Characters",
+      "apiEndpoints": "API Endpoints",
+      "javaFiles": "Java Files"
+    },
+    "techStack": "Tech Stack",
+    "viewOnGithub": "View on GitHub",
+    "backToList": "← Back to Projects"
+  },
+  "skills": {
+    "title": "Skills",
+    "subtitle": "Keep learning, keep growing",
+    "levelLabels": {
+      "master": "Master",
+      "proficient": "Proficient",
+      "familiar": "Familiar",
+      "learning": "Learning"
+    },
+    "categories": {
+      "aiAgent": "AI Agent Development",
+      "languages": "Programming Languages",
+      "frameworks": "Frameworks & Tools",
+      "databases": "Databases"
+    }
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Let's connect",
+    "email": "Send Email",
+    "emailDesc": "Send me an email directly, I'll reply as soon as possible",
+    "sendEmail": "Send Email",
+    "github": "GitHub",
+    "githubDesc": "Check out my open-source projects and code",
+    "visitGithub": "Visit GitHub",
+    "resume": "Resume",
+    "resumeDesc": "Download my latest resume (PDF)",
+    "downloadResume": "Download Resume",
+    "jobTitle": "Job Preferences",
+    "jobRole": "New Graduate | AI Agent Development | Full-stack Engineering"
+  },
+  "footer": {
+    "copyright": "All rights reserved"
+  }
+}
