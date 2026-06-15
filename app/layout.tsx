@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { siteConfig } from '@/lib/site';
 import "./globals.css";
 
 const inter = Inter({
@@ -9,36 +10,36 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://just-suik.github.io'),
+  metadataBase: new URL(siteConfig.url),
   title: {
-    default: '陈鑫鹏 | AI Agent 开发工程师',
-    template: '%s | 陈鑫鹏',
+    default: `${siteConfig.name} | ${siteConfig.title}`,
+    template: `%s | ${siteConfig.name}`,
   },
-  description: '陈鑫鹏的个人作品集网站，专注于 AI Agent 开发、Prompt Engineering 和全栈工程。展示 DesktopPet、e数码商城等项目。',
-  keywords: ['AI Agent', '前端开发', '全栈', 'TypeScript', 'Java', '陈鑫鹏'],
-  authors: [{ name: '陈鑫鹏', url: 'https://github.com/JUST-SUIK' }],
-  creator: '陈鑫鹏',
+  description: siteConfig.description,
+  keywords: ['AI Agent', '前端开发', '全栈', 'TypeScript', 'Java', siteConfig.name],
+  authors: [{ name: siteConfig.name, url: siteConfig.github }],
+  creator: siteConfig.name,
   openGraph: {
     type: 'website',
     locale: 'zh_CN',
-    siteName: '陈鑫鹏 | 个人作品集',
-    title: '陈鑫鹏 | AI Agent 开发工程师',
+    siteName: `${siteConfig.name} | 个人作品集`,
+    title: `${siteConfig.name} | ${siteConfig.title}`,
     description: '专注 AI Agent 开发与全栈工程，展示 DesktopPet 等项目作品。',
-    url: 'https://just-suik.github.io',
+    url: siteConfig.url,
     images: [
       {
-        url: '/images/og-image.png',
+        url: siteConfig.ogImage,
         width: 1200,
         height: 630,
-        alt: '陈鑫鹏个人作品集',
+        alt: `${siteConfig.name}个人作品集`,
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: '陈鑫鹏 | AI Agent 开发工程师',
+    title: `${siteConfig.name} | ${siteConfig.title}`,
     description: '专注 AI Agent 开发与全栈工程。',
-    images: ['/images/og-image.png'],
+    images: [siteConfig.ogImage],
   },
   robots: {
     index: true,

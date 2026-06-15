@@ -1,6 +1,16 @@
+import type { Metadata } from 'next';
 import { useTranslations } from 'next-intl';
 import { SkillTree } from '@/components/skills/SkillTree';
 import { SkillAccordion } from '@/components/skills/SkillAccordion';
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const isZh = locale === 'zh';
+  return {
+    title: isZh ? '技能树' : 'Skills',
+    description: isZh ? '陈鑫鹏的技术技能：AI Agent 开发、编程语言、框架 & 工具、数据库' : 'Skills: AI Agent Development, Programming Languages, Frameworks, Databases',
+  };
+}
 
 export default function AboutPage() {
   const t = useTranslations();

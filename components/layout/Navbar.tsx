@@ -3,9 +3,11 @@
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { LanguageSwitcher } from "./LanguageSwitcher";
+import { navLinks } from "@/lib/navigation";
 
 export function Navbar() {
-  const t = useTranslations("nav");
+  const t = useTranslations();
   const pathname = usePathname();
 
   const locale = pathname.split("/")[1] || "zh";
@@ -14,13 +16,6 @@ export function Navbar() {
     if (href === "/") return pathname === `/${locale}` || pathname === `/${locale}/`;
     return pathname.startsWith(`/${locale}${href}`);
   };
-
-  const links = [
-    { href: "/", label: t("home") },
-    { href: "/about", label: t("about") },
-    { href: "/projects", label: t("projects") },
-    { href: "/contact", label: t("contact") },
-  ];
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-surface/80 border-b border-surface-border">
@@ -32,7 +27,7 @@ export function Navbar() {
           Portfolio
         </Link>
         <div className="flex items-center gap-1">
-          {links.map((link) => (
+          {navLinks.map((link) => (
             <Link
               key={link.href}
               href={`/${locale}${link.href === "/" ? "" : link.href}`}
@@ -42,22 +37,11 @@ export function Navbar() {
                   : "text-text-secondary hover:text-text-primary hover:bg-surface-card"
               }`}
             >
-              {link.label}
+              {t(link.labelKey)}
             </Link>
           ))}
-          <div className="ml-2 pl-2 border-l border-surface-border flex gap-1">
-            <Link
-              href={`/zh${pathname.replace(/^\/(zh|en)/, "")}`}
-              className={`px-2 py-1 text-xs rounded ${locale === "zh" ? "text-accent-blue bg-accent-blue/10" : "text-text-muted hover:text-text-secondary"}`}
-            >
-              中文
-            </Link>
-            <Link
-              href={`/en${pathname.replace(/^\/(zh|en)/, "")}`}
-              className={`px-2 py-1 text-xs rounded ${locale === "en" ? "text-accent-blue bg-accent-blue/10" : "text-text-muted hover:text-text-secondary"}`}
-            >
-              EN
-            </Link>
+          <div className="ml-2 pl-2 border-l border-surface-border">
+            <LanguageSwitcher />
           </div>
         </div>
       </nav>

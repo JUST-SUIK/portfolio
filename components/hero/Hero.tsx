@@ -1,8 +1,13 @@
+'use client';
+
 import { useTranslations } from 'next-intl';
+import { useParams } from 'next/navigation';
 import { Button } from '@/components/ui/Button';
 
 export function Hero() {
   const t = useTranslations();
+  const params = useParams();
+  const locale = (params?.locale as string) || 'zh';
 
   return (
     <section className="min-h-[calc(100vh-4rem)] flex items-center">
@@ -19,10 +24,10 @@ export function Hero() {
             {t('hero.tagline')}
           </p>
           <div className="flex flex-wrap gap-4 mt-8">
-            <Button href="/projects" variant="primary" size="lg">
+            <Button href={`/${locale}/projects`} variant="primary" size="lg">
               {t('hero.ctaProjects')}
             </Button>
-            <Button href="/contact" variant="secondary" size="lg">
+            <Button href={`/${locale}/contact`} variant="secondary" size="lg">
               {t('hero.ctaContact')}
             </Button>
             <Button href="/resume.pdf" variant="ghost" size="lg">

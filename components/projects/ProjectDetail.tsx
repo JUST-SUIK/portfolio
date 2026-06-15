@@ -1,3 +1,5 @@
+'use client';
+
 // components/projects/ProjectDetail.tsx
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
@@ -53,7 +55,7 @@ export function ProjectDetail({ project, locale }: ProjectDetailProps) {
 
       {/* Highlights */}
       <h2 className="text-xl font-semibold text-text-primary mb-4">
-        核心亮点
+        {t('projects.highlightsTitle')}
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
         {project.highlights.map((h) => (

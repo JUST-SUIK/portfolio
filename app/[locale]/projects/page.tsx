@@ -1,7 +1,16 @@
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
+import type { Metadata } from 'next';
 import { projects } from '@/lib/projects';
 import { ProjectCard } from '@/components/projects/ProjectCard';
 import { AnimatedSection } from '@/components/ui/AnimatedSection';
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  return {
+    title: locale === 'zh' ? '项目作品' : 'Projects',
+    description: locale === 'zh' ? '陈鑫鹏的项目作品展示' : "Chen Xinpeng's project portfolio",
+  };
+}
 
 export default async function ProjectsPage({
   params,
@@ -9,7 +18,7 @@ export default async function ProjectsPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const t = useTranslations();
+  const t = await getTranslations({ locale });
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
