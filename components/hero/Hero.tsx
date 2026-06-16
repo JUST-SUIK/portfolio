@@ -76,7 +76,7 @@ export function Hero() {
             <Button href={`/${locale}/contact`} variant="secondary" size="lg">
               {t('hero.ctaContact')}
             </Button>
-            <Button href="/resume.pdf" variant="ghost" size="lg">
+            <Button href={`/${locale}/experience`} variant="ghost" size="lg">
               {t('hero.ctaResume')}
               <ArrowDown size={16} className="ml-1" />
             </Button>

@@ -1,13 +1,17 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import { useParams } from 'next/navigation';
 import { Button } from '@/components/ui/Button';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { siteConfig } from '@/lib/site';
-import { Mail, GitFork, FileDown, Briefcase } from 'lucide-react';
+import { Mail, GitFork, Briefcase } from 'lucide-react';
 
 export function ContactSection() {
   const t = useTranslations();
+  const params = useParams();
+  const locale = (params?.locale as string) || 'zh';
+  const isZh = locale === 'zh';
 
   const mailtoUrl = `mailto:${siteConfig.email}?subject=${encodeURIComponent(
     '来自作品集 - 联系陈鑫鹏'
@@ -37,13 +41,13 @@ export function ContactSection() {
       ),
     },
     {
-      icon: <FileDown size={22} />,
+      icon: <Briefcase size={22} />,
       iconBg: 'bg-emerald-500/10 text-emerald-500',
       title: t('contact.resume'),
       desc: t('contact.resumeDesc'),
       action: (
-        <Button href="/resume.pdf" variant="secondary" size="sm">
-          {t('contact.downloadResume')}
+        <Button href={`/${locale}/experience`} variant="secondary" size="sm">
+          {isZh ? '查看简历' : 'View Resume'}
         </Button>
       ),
     },

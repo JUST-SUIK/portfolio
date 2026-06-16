@@ -7,7 +7,9 @@
     "home": "Home",
     "about": "About",
     "projects": "Projects",
-    "contact": "Contact"
+    "contact": "Contact",
+    "blog": "Blog",
+    "experience": "Resume"
   },
   "hero": {
     "greeting": "Hi, I'm",
@@ -101,5 +103,21 @@
   },
   "footer": {
     "copyright": "All rights reserved"
+  },
+  "blog": {
+    "title": "Tech Blog",
+    "subtitle": "Thoughts on learning and practice",
+    "posts": {
+      "aiNativeDev": {
+        "title": "AI-Native Dev Workflow: Building Projects with Claude Code",
+        "summary": "From zero to one, completing the DesktopPet project in 2 weeks using Claude Code.",
+        "content": "In the DesktopPet project, I used Claude Code throughout the entire development process, establishing a complete AI-Native development workflow.\n\n## Why Claude Code\n\nThe traditional development flow is: requirements → design → coding → testing → deployment. The core idea of AI-Native development is making AI your pair programming partner, not just a code generator.\n\n## CLAUDE.md Project Config\n\nAt the start of each project, I write a CLAUDE.md file containing:\n- Project architecture overview\n- Tech stack choices and constraints\n- Code conventions and naming\n- Key design decisions\n\n## ADR Architecture Decision Records\n\nFor important architectural decisions, I write ADRs documenting:\n- Background and problem\n- Options considered\n- Final decision and rationale\n- Consequences and impact\n\n## Results\n\nWith this workflow, DesktopPet was completed in 2 weeks: 190 source files, 12,000+ lines of code, 413 test cases."
+      },
+      "desktopPetArch": {
+        "title": "DesktopPet Architecture: EventBus-Driven 8-Module System",
+        "summary": "Deep dive into DesktopPet's event-driven architecture and how EventBus enables zero-coupling communication.",
+        "content": "DesktopPet uses an EventBus-decoupled 8-module architecture where each module communicates through events, achieving high modularity and extensibility.\n\n## Architecture Overview\n\nThe system has three layers:\n- Perception: AppMonitor, InputMonitor, AwayDetector\n- Decision: ProactiveDialogueService, ContextRetrievalService\n- Execution: InteractionService, VoiceInteractionService, EmotionService\n\n## EventBus Design\n\nThe EventBus is the central communication hub, supporting:\n- 11 event types\n- Thread-safe pub/sub\n- Exception isolation\n- Async event handling\n\n## Glitch Personality System\n\nOrdis's three-layer personality system is one of the most interesting designs. With 10 independent trigger conditions, each with its own probability, cooldown, and check interval, it creates unpredictable yet reasonable glitch personality behavior."
+      }
+    }
   }
 }
