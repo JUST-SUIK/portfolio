@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { siteConfig } from '@/lib/site';
 import { Hero } from '@/components/hero/Hero';
-import { MouseGlow } from '@/components/hero/MouseGlow';
+import { InteractiveBackground } from '@/components/hero/InteractiveBackground';
 
 export async function generateMetadata({
   params,
@@ -21,7 +21,7 @@ export async function generateMetadata({
 export default function HomePage() {
   return (
     <>
-      <MouseGlow />
+      <InteractiveBackground />
       <Hero />
     </>
   );
