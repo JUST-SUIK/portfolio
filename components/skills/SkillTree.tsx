@@ -1,4 +1,3 @@
-// components/skills/SkillTree.tsx
 'use client';
 
 import { useTranslations } from 'next-intl';
@@ -13,40 +12,40 @@ export function SkillTree() {
   const locale = (params?.locale as string) || 'zh';
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
       {skillCategories.map((category) => (
         <GlassCard key={category.nameKey} hover>
-          <h3 className="text-lg font-semibold text-text-primary mb-4">
+          <h3 className="text-base font-bold text-text-primary tracking-tight mb-5">
             {t(category.nameKey)}
           </h3>
-          <div className="space-y-4">
+          <div className="space-y-3.5">
             {category.skills.map((skill) => (
               <div key={skill.name} className="group">
-                <div className="flex items-center justify-between mb-1">
-                  <span className="text-sm font-medium text-text-secondary">
+                <div className="flex items-center justify-between mb-1.5">
+                  <span className="text-sm font-medium text-text-secondary tracking-tight">
                     {skill.name}
                   </span>
                   <SkillBadge level={skill.level} locale={locale} />
                 </div>
-                {/* Progress bar */}
-                <div className="h-1.5 bg-surface-border rounded-full overflow-hidden">
+                {/* Thinner progress bar */}
+                <div className="h-1 bg-surface-border/50 rounded-full overflow-hidden">
                   <div
-                    className={`h-full rounded-full transition-all duration-500 motion-safe:group-hover:shadow-lg ${
+                    className={`h-full rounded-full transition-all duration-700 ease-out motion-safe:group-hover:shadow-sm ${
                       skill.level === 'master'
-                        ? 'w-[90%] bg-emerald-500'
+                        ? 'w-[90%] bg-accent-blue'
                         : skill.level === 'proficient'
-                          ? 'w-[75%] bg-accent-blue'
+                          ? 'w-[70%] bg-accent-blue/70'
                           : skill.level === 'familiar'
-                            ? 'w-[50%] bg-amber-500'
-                            : 'w-[25%] bg-text-muted'
+                            ? 'w-[45%] bg-accent-blue/40'
+                            : 'w-[20%] bg-accent-blue/20'
                     }`}
                   />
                 </div>
-                {/* Hover tooltip: project proof */}
+                {/* Proof on hover */}
                 {skill.proof && (
-                  <div className="mt-1 text-xs text-text-muted opacity-0 group-hover:opacity-100 transition-opacity duration-200 truncate">
+                  <p className="mt-1.5 text-xs text-text-muted opacity-0 group-hover:opacity-100 transition-opacity duration-200 line-clamp-1">
                     {skill.proof}
-                  </div>
+                  </p>
                 )}
               </div>
             ))}

@@ -2,7 +2,23 @@
 
 import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
+import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/Button';
+import { ArrowDown } from 'lucide-react';
+
+const stagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.12 } },
+};
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
+  },
+};
 
 export function Hero() {
   const t = useTranslations();
@@ -10,20 +26,50 @@ export function Hero() {
   const locale = (params?.locale as string) || 'zh';
 
   return (
-    <section className="min-h-[calc(100vh-4rem)] flex items-center">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 w-full">
-        <div className="max-w-3xl">
-          <p className="text-accent-blue font-medium mb-4">{t('hero.greeting')}</p>
-          <h1 className="text-hero font-bold text-text-primary leading-tight">
+    <section className="relative min-h-[100dvh] flex items-center overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-24 w-full">
+        <motion.div
+          className="max-w-3xl"
+          variants={stagger}
+          initial="hidden"
+          animate="visible"
+        >
+          {/* Greeting pill */}
+          <motion.div variants={fadeUp} className="mb-6">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium
+                             bg-accent-blue/10 text-accent-blue border border-accent-blue/15
+                             tracking-tight">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent-blue animate-pulse" />
+              {t('hero.greeting')}
+            </span>
+          </motion.div>
+
+          {/* Name — massive display text */}
+          <motion.h1
+            variants={fadeUp}
+            className="hero-title mb-4"
+          >
             {t('hero.name')}
-          </h1>
-          <h2 className="text-heading font-semibold text-text-secondary mt-2">
+          </motion.h1>
+
+          {/* Title */}
+          <motion.h2
+            variants={fadeUp}
+            className="text-xl sm:text-2xl font-semibold text-accent-blue tracking-tight mb-6"
+          >
             {t('hero.title')}
-          </h2>
-          <p className="text-text-secondary text-lg mt-6 max-w-xl">
+          </motion.h2>
+
+          {/* Tagline */}
+          <motion.p
+            variants={fadeUp}
+            className="hero-subtitle max-w-xl mb-10"
+          >
             {t('hero.tagline')}
-          </p>
-          <div className="flex flex-wrap gap-4 mt-8">
+          </motion.p>
+
+          {/* CTA group */}
+          <motion.div variants={fadeUp} className="flex flex-wrap gap-3">
             <Button href={`/${locale}/projects`} variant="primary" size="lg">
               {t('hero.ctaProjects')}
             </Button>
@@ -31,10 +77,27 @@ export function Hero() {
               {t('hero.ctaContact')}
             </Button>
             <Button href="/resume.pdf" variant="ghost" size="lg">
-              {t('hero.ctaResume')} ↓
+              {t('hero.ctaResume')}
+              <ArrowDown size={16} className="ml-1" />
             </Button>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
+
+        {/* Scroll indicator */}
+        <motion.div
+          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5, duration: 0.6 }}
+        >
+          <motion.div
+            className="w-5 h-8 rounded-full border-2 border-text-muted/30 flex items-start justify-center pt-1.5"
+            animate={{ y: [0, 6, 0] }}
+            transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            <div className="w-1 h-1.5 rounded-full bg-text-muted/50" />
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );

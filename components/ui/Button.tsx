@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ButtonHTMLAttributes, ReactNode } from 'react';
+import { ButtonHTMLAttributes, type ReactNode } from 'react';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'ghost';
@@ -8,19 +8,19 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
 }
 
-const variantStyles: Record<NonNullable<ButtonProps['variant']>, string> = {
+const variantStyles = {
   primary:
-    'bg-accent-blue text-white hover:bg-blue-600 shadow-lg shadow-accent-blue/25',
+    'bg-accent-blue text-white hover:bg-blue-600 shadow-lg shadow-accent-blue/20 active:scale-[0.98]',
   secondary:
-    'bg-surface-card text-text-primary border border-surface-border hover:border-accent-blue/30',
+    'bg-surface-card text-text-primary border border-surface-border hover:border-accent-blue/20 hover:shadow-md active:scale-[0.98]',
   ghost:
-    'text-text-secondary hover:text-text-primary hover:bg-surface-card',
+    'text-text-secondary hover:text-text-primary hover:bg-surface-card/60 active:scale-[0.98]',
 };
 
-const sizeStyles: Record<NonNullable<ButtonProps['size']>, string> = {
-  sm: 'px-3 py-1.5 text-sm',
-  md: 'px-5 py-2.5 text-sm',
-  lg: 'px-6 py-3 text-base',
+const sizeStyles = {
+  sm: 'px-3.5 py-1.5 text-sm tracking-tight',
+  md: 'px-5 py-2.5 text-sm tracking-tight',
+  lg: 'px-7 py-3.5 text-base tracking-tight',
 };
 
 export function Button({
@@ -32,8 +32,8 @@ export function Button({
   ...props
 }: ButtonProps) {
   const classes = `inline-flex items-center justify-center gap-2 rounded-xl
-                   font-medium transition-all duration-200
-                   focus:outline-none focus:ring-2 focus:ring-accent-blue/50
+                   font-semibold transition-all duration-200 ease-out
+                   focus:outline-none focus:ring-2 focus:ring-accent-blue/40 focus:ring-offset-2 focus:ring-offset-surface
                    motion-safe:hover:scale-[1.02]
                    ${variantStyles[variant]} ${sizeStyles[size]} ${className}`;
 
