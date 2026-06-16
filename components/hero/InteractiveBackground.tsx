@@ -9,9 +9,34 @@ interface Particle {
   color: string;
 }
 
-const PARTICLE_COUNT = 55;
-const COLORS = ['59,130,246', '139,92,246', '99,102,241', '56,189,248'];
+const PARTICLE_COUNT = 45;
+const DARK_COLORS = ['59,130,246', '139,92,246', '99,102,241', '56,189,248'];
+const LIGHT_COLORS = ['37,99,235', '109,40,217', '79,70,229', '2,132,199'];
 const GRID_SPACING = 70;
+
+// Theme-aware color configs
+const THEME = {
+  dark: {
+    base: ['#080810', '#0a0d1a', '#060814'],
+    gradient: ['#1e40af', '#7c3aed', '#2563eb', '#6d28d9', '#1d4ed8'],
+    overlayCenter: 'rgba(0,0,0,0)',
+    overlayEdge: 'rgba(0,0,0,0.88)',
+    accentGlow: 'rgba(139,92,246,0.06)',
+    gridColor: 'rgba(255,255,255,0.015)',
+    particleColors: DARK_COLORS,
+    fallbackBg: 'linear-gradient(135deg, #080810, #0a0d1a 50%, #060814)',
+  },
+  light: {
+    base: ['#f0f4ff', '#f8fafc', '#eff6ff'],
+    gradient: ['#93c5fd', '#c4b5fd', '#60a5fa', '#a78bfa', '#93c5fd'],
+    overlayCenter: 'rgba(255,255,255,0)',
+    overlayEdge: 'rgba(255,255,255,0.82)',
+    accentGlow: 'rgba(99,102,241,0.10)',
+    gridColor: 'rgba(0,0,0,0.025)',
+    particleColors: LIGHT_COLORS,
+    fallbackBg: 'linear-gradient(135deg, #f0f4ff, #f8fafc 50%, #eff6ff)',
+  },
+};
 
 export function InteractiveBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -19,16 +44,18 @@ export function InteractiveBackground() {
   const mouseRef = useRef({ x: -500, y: -500 });
   const targetRef = useRef({ x: -500, y: -500 });
   const frameRef = useRef(0);
+  const themeRef = useRef<'dark' | 'light'>('dark');
 
   const initParticles = useCallback((w: number, h: number) => {
+    const colors = themeRef.current === 'dark' ? DARK_COLORS : LIGHT_COLORS;
     const ps: Particle[] = [];
     for (let i = 0; i < PARTICLE_COUNT; i++) {
       ps.push({
         x: Math.random() * w, y: Math.random() * h,
         vx: (Math.random() - 0.5) * 0.4, vy: (Math.random() - 0.5) * 0.4,
         size: 1.2 + Math.random() * 2.5,
-        alpha: 0.15 + Math.random() * 0.4,
-        color: COLORS[Math.floor(Math.random() * COLORS.length)],
+        alpha: 0.1 + Math.random() * 0.35,
+        color: colors[Math.floor(Math.random() * colors.length)],
       });
     }
     particlesRef.current = ps;
@@ -44,6 +71,20 @@ export function InteractiveBackground() {
     let W = window.innerWidth;
     let H = window.innerHeight;
 
+    const getTheme = (): 'dark' | 'light' =>
+      document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+
+    themeRef.current = getTheme();
+
+    // Watch for theme changes
+    const themeObserver = new MutationObserver(() => {
+      themeRef.current = getTheme();
+    });
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+
     const resize = () => {
       W = window.innerWidth; H = window.innerHeight;
       canvas.width = W; canvas.height = H;
@@ -54,11 +95,7 @@ export function InteractiveBackground() {
     window.addEventListener('resize', resize);
 
     const onMouse = (e: MouseEvent) => { targetRef.current = { x: e.clientX, y: e.clientY }; };
-    const onTouch = (e: TouchEvent) => {
-      if (e.touches.length) targetRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-    };
     window.addEventListener('mousemove', onMouse);
-    window.addEventListener('touchmove', onTouch);
 
     const loop = () => {
       const f = frameRef.current++;
@@ -66,117 +103,100 @@ export function InteractiveBackground() {
       const mouse = mouseRef.current;
       const target = targetRef.current;
       const ps = particlesRef.current;
+      const cfg = THEME[themeRef.current];
 
-      // Smooth mouse lerp
-      mouse.x += (target.x - mouse.x) * 0.055;
-      mouse.y += (target.y - mouse.y) * 0.055;
+      mouse.x += (target.x - mouse.x) * 0.06;
+      mouse.y += (target.y - mouse.y) * 0.06;
       const mx = mouse.x, my = mouse.y;
 
       ctx.clearRect(0, 0, W, H);
 
-      // ━━━ Layer 1: Dark base with subtle animation ━━━
+      // Layer 1: Base gradient
       const baseGrad = ctx.createLinearGradient(
-        Math.sin(t * 0.4) * 150, Math.cos(t * 0.35) * 150,
-        W + Math.cos(t * 0.3) * 150, H + Math.sin(t * 0.45) * 150,
+        Math.sin(t * 0.4) * 120, Math.cos(t * 0.35) * 120,
+        W + Math.cos(t * 0.3) * 120, H + Math.sin(t * 0.45) * 120,
       );
-      baseGrad.addColorStop(0, '#080810');
-      baseGrad.addColorStop(0.5, '#0a0d1a');
-      baseGrad.addColorStop(1, '#060814');
+      baseGrad.addColorStop(0, cfg.base[0]);
+      baseGrad.addColorStop(0.5, cfg.base[1]);
+      baseGrad.addColorStop(1, cfg.base[2]);
       ctx.fillStyle = baseGrad;
       ctx.fillRect(0, 0, W, H);
 
-      // ━━━ Layer 2: Colorful gradient (hidden under dark overlay) ━━━
+      // Layer 2: Colorful gradient
       const colorGrad = ctx.createLinearGradient(
-        Math.sin(t * 0.6) * 120 + mx * 0.08, Math.cos(t * 0.55) * 120 + my * 0.08,
-        W + Math.cos(t * 0.5) * 120, H + Math.sin(t * 0.7) * 120,
+        Math.sin(t * 0.6) * 100 + mx * 0.05, Math.cos(t * 0.55) * 100 + my * 0.05,
+        W + Math.cos(t * 0.5) * 100, H + Math.sin(t * 0.7) * 100,
       );
-      colorGrad.addColorStop(0, '#1e40af');
-      colorGrad.addColorStop(0.25, '#7c3aed');
-      colorGrad.addColorStop(0.5, '#2563eb');
-      colorGrad.addColorStop(0.75, '#6d28d9');
-      colorGrad.addColorStop(1, '#1d4ed8');
+      colorGrad.addColorStop(0, cfg.gradient[0]);
+      colorGrad.addColorStop(0.25, cfg.gradient[1]);
+      colorGrad.addColorStop(0.5, cfg.gradient[2]);
+      colorGrad.addColorStop(0.75, cfg.gradient[3]);
+      colorGrad.addColorStop(1, cfg.gradient[4]);
       ctx.fillStyle = colorGrad;
       ctx.fillRect(0, 0, W, H);
 
-      // ━━━ Layer 3: Dark overlay with transparent spotlight at mouse ━━━
-      const overlayGrad = ctx.createRadialGradient(mx, my, 30, mx, my, 600);
-      overlayGrad.addColorStop(0, 'rgba(0,0,0,0)');       // Hole: see-through at center
-      overlayGrad.addColorStop(0.25, 'rgba(0,0,0,0)');
-      overlayGrad.addColorStop(0.5, 'rgba(0,0,0,0.35)');
-      overlayGrad.addColorStop(0.75, 'rgba(0,0,0,0.6)');
-      overlayGrad.addColorStop(1, 'rgba(0,0,0,0.85)');     // Nearly opaque at edges
+      // Layer 3: Overlay with spotlight hole (smaller radius: 280)
+      const overlayGrad = ctx.createRadialGradient(mx, my, 20, mx, my, 280);
+      overlayGrad.addColorStop(0, cfg.overlayCenter);
+      overlayGrad.addColorStop(0.3, cfg.overlayCenter);
+      overlayGrad.addColorStop(0.55, cfg.overlayEdge.replace(/[\d.]+\)$/, '0.3)'));
+      overlayGrad.addColorStop(0.8, cfg.overlayEdge.replace(/[\d.]+\)$/, '0.65)'));
+      overlayGrad.addColorStop(1, cfg.overlayEdge);
       ctx.fillStyle = overlayGrad;
       ctx.fillRect(0, 0, W, H);
 
-      // ━━━ Layer 4: Purple accent glow (always subtle) ━━━
-      const accentGlow = ctx.createRadialGradient(
-        mx - 50, my - 30, 0,
-        mx - 50, my - 30, 160,
-      );
-      accentGlow.addColorStop(0, 'rgba(139,92,246,0.08)');
+      // Layer 4: Subtle accent glow
+      const accentGlow = ctx.createRadialGradient(mx - 40, my - 25, 0, mx - 40, my - 25, 120);
+      accentGlow.addColorStop(0, cfg.accentGlow);
       accentGlow.addColorStop(1, 'rgba(0,0,0,0)');
       ctx.fillStyle = accentGlow;
       ctx.fillRect(0, 0, W, H);
 
-      // ━━━ Layer 5: Grid lines that warp near cursor ━━━
-      ctx.strokeStyle = 'rgba(255,255,255,0.015)';
+      // Layer 5: Grid
+      ctx.strokeStyle = cfg.gridColor;
       ctx.lineWidth = 0.5;
-
       for (let gx = 0; gx < W; gx += GRID_SPACING) {
         ctx.beginPath();
         for (let gy = 0; gy <= H; gy += 12) {
           const dx = gx - mx, dy = gy - my;
           const d = Math.sqrt(dx * dx + dy * dy);
-          const warp = Math.max(0, 1 - d / 300);
-          const offset = warp * 12 * Math.sin(t * 1.5 + gx * 0.015);
+          const warp = Math.max(0, 1 - d / 250);
+          const offset = warp * 10 * Math.sin(t * 1.5 + gx * 0.015);
           if (gy === 0) ctx.moveTo(gx + offset, gy);
           else ctx.lineTo(gx + offset, gy);
         }
         ctx.stroke();
       }
 
-      // ━━━ Layer 6: Particles ━━━
+      // Layer 6: Particles
       for (const p of ps) {
-        p.x += p.vx;
-        p.y += p.vy;
+        p.x += p.vx; p.y += p.vy;
 
-        // Mouse repulsion
         const dx = p.x - mx, dy = p.y - my;
         const d = Math.sqrt(dx * dx + dy * dy) || 1;
-        if (d < 200) {
-          const force = (1 - d / 200) * 0.12;
+        if (d < 160) {
+          const force = (1 - d / 160) * 0.1;
           p.vx += (dx / d) * force;
           p.vy += (dy / d) * force;
         }
 
-        // Damping + speed cap
         p.vx *= 0.997; p.vy *= 0.997;
         const spd = Math.hypot(p.vx, p.vy);
-        if (spd > 1.8) { p.vx *= 1.8 / spd; p.vy *= 1.8 / spd; }
+        if (spd > 1.6) { p.vx *= 1.6 / spd; p.vy *= 1.6 / spd; }
 
-        // Wrap
         if (p.x < -10) p.x = W + 10;
         if (p.x > W + 10) p.x = -10;
         if (p.y < -10) p.y = H + 10;
         if (p.y > H + 10) p.y = -10;
 
-        // Brightness near mouse
         const nd = Math.hypot(p.x - mx, p.y - my);
-        const bright = nd < 250 ? (1 - nd / 250) * 0.35 : 0;
-        const a = Math.min(p.alpha + bright, 0.8);
+        const bright = nd < 200 ? (1 - nd / 200) * 0.3 : 0;
+        const a = Math.min(p.alpha + bright, 0.7);
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(${p.color},${a})`;
         ctx.fill();
-
-        // Subtle glow ring for closer particles
-        if (nd < 120) {
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.size + 3, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(${p.color},${a * 0.25})`;
-          ctx.fill();
-        }
       }
 
       raf = requestAnimationFrame(loop);
@@ -186,19 +206,27 @@ export function InteractiveBackground() {
 
     return () => {
       cancelAnimationFrame(raf);
+      themeObserver.disconnect();
       window.removeEventListener('resize', resize);
       window.removeEventListener('mousemove', onMouse);
-      window.removeEventListener('touchmove', onTouch);
     };
   }, [initParticles]);
 
   return (
     <>
-      {/* Fallback gradient for mobile / no-JS */}
+      {/* Fallback for no-JS */}
       <div
-        className="fixed inset-0 pointer-events-none"
+        className="fixed inset-0 pointer-events-none hidden dark:hidden"
         style={{
-          background: 'linear-gradient(135deg, #080810, #0a0d1a 50%, #060814)',
+          background: THEME.light.fallbackBg,
+          zIndex: -1,
+        }}
+        aria-hidden="true"
+      />
+      <div
+        className="fixed inset-0 pointer-events-none hidden dark:block"
+        style={{
+          background: THEME.dark.fallbackBg,
           zIndex: -1,
         }}
         aria-hidden="true"
