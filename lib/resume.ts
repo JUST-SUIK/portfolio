@@ -125,6 +125,29 @@ export const resumeData: ResumeData = {
       ],
     },
     {
+      name: 'Java 物业管理系统',
+      period: '2025.03 - 2025.06',
+      tech: 'Spring Boot / Vue / ElementUI / MySQL',
+      role: '全栈开发（课程设计）',
+      highlights: [
+        '独立开发一套完整的物业管理系统，实现业主信息管理、缴费记录、报修工单等核心功能',
+        '前端使用 Vue + ElementUI 构建管理后台和用户界面',
+        '后端使用 Spring Boot 实现 RESTful API，负责接口设计与数据库建模',
+        '涵盖业主信息管理、费用缴纳、投诉建议、系统管理等模块',
+      ],
+    },
+    {
+      name: 'Flapper Bird — Java 实战小游戏',
+      period: '2023.12 - 2024.01',
+      tech: 'Java / Swing/AWT / javax.sound',
+      role: '独立开发',
+      highlights: [
+        '优化碰撞检测算法，提升游戏体验精准度',
+        '实现了背景音乐和音效系统，增加了人工智能障碍物设计',
+        '独立完成游戏设计、实现和测试，使用 Java 标准库开发',
+      ],
+    },
+    {
       name: 'GEC6818 — 嵌入式 Linux 开发',
       period: '2024.05 - 2024.06',
       tech: 'C++ / ARM Cortex-A9 / Linux',
@@ -153,7 +176,17 @@ export const resumeData: ResumeData = {
       highlights: [
         '带领 20+ 人团队完成多个项目交付，负责技术方案设计与代码审查',
         '组织参与 ACM 程序设计竞赛、RAO 机器人比赛、湖南省程序设计省赛',
+        '负责实验室硬件设备维护与文档管理，建立设备台账与项目跟踪机制',
         '累计编程 1200+ 小时',
+      ],
+    },
+    {
+      title: 'RAO 机器人比赛 · 参赛选手',
+      period: '2023 - 2024',
+      highlights: [
+        '参与 RAO 机器人比赛，负责机器人程序编写与现场调试',
+        '操作宇树 GO1 四足机器人，完成传感器校准与功能测试',
+        '与团队成员协作完成任务分工与进度协调',
       ],
     },
   ],
