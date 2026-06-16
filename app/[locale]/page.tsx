@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { siteConfig } from '@/lib/site';
 import { Hero } from '@/components/hero/Hero';
+import { MouseGlow } from '@/components/hero/MouseGlow';
 
 export async function generateMetadata({
   params,
@@ -18,5 +19,10 @@ export async function generateMetadata({
 }
 
 export default function HomePage() {
-  return <Hero />;
+  return (
+    <>
+      <MouseGlow />
+      <Hero />
+    </>
+  );
 }
