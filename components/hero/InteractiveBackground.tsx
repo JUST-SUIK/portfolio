@@ -196,15 +196,17 @@ export function InteractiveBackground() {
     <>
       {/* Fallback gradient for mobile / no-JS */}
       <div
-        className="fixed inset-0 z-0 pointer-events-none"
+        className="fixed inset-0 pointer-events-none"
         style={{
           background: 'linear-gradient(135deg, #080810, #0a0d1a 50%, #060814)',
+          zIndex: -1,
         }}
         aria-hidden="true"
       />
       <canvas
         ref={canvasRef}
-        className="fixed inset-0 pointer-events-none z-0"
+        className="fixed inset-0 pointer-events-none"
+        style={{ zIndex: -1 }}
         aria-hidden="true"
       />
     </>
