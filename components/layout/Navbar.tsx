@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LanguageSwitcher } from "./LanguageSwitcher";
+import { ThemeToggle } from "./ThemeToggle";
 import { navLinks } from "@/lib/navigation";
 
 export function Navbar() {
@@ -40,8 +41,9 @@ export function Navbar() {
               {t(link.labelKey)}
             </Link>
           ))}
-          <div className="ml-2 pl-2 border-l border-surface-border">
+          <div className="ml-2 pl-2 border-l border-surface-border flex items-center gap-2">
             <LanguageSwitcher />
+            <ThemeToggle />
           </div>
         </div>
       </nav>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { siteConfig } from '@/lib/site';
+import { InteractiveBackground } from '@/components/hero/InteractiveBackground';
 import "./globals.css";
 
 const inter = Inter({
@@ -68,7 +69,10 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <InteractiveBackground />
+        {children}
+      </body>
     </html>
   );
 }

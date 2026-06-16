@@ -27,7 +27,7 @@ export function InteractiveBackground() {
         x: Math.random() * w, y: Math.random() * h,
         vx: (Math.random() - 0.5) * 0.4, vy: (Math.random() - 0.5) * 0.4,
         size: 1.2 + Math.random() * 2.5,
-        alpha: 0.08 + Math.random() * 0.35,
+        alpha: 0.15 + Math.random() * 0.4,
         color: COLORS[Math.floor(Math.random() * COLORS.length)],
       });
     }
@@ -99,12 +99,12 @@ export function InteractiveBackground() {
       ctx.fillRect(0, 0, W, H);
 
       // ━━━ Layer 3: Dark overlay with transparent spotlight at mouse ━━━
-      const overlayGrad = ctx.createRadialGradient(mx, my, 30, mx, my, 420);
+      const overlayGrad = ctx.createRadialGradient(mx, my, 30, mx, my, 600);
       overlayGrad.addColorStop(0, 'rgba(0,0,0,0)');       // Hole: see-through at center
       overlayGrad.addColorStop(0.25, 'rgba(0,0,0,0)');
-      overlayGrad.addColorStop(0.5, 'rgba(0,0,0,0.5)');
-      overlayGrad.addColorStop(0.75, 'rgba(0,0,0,0.8)');
-      overlayGrad.addColorStop(1, 'rgba(0,0,0,0.94)');     // Nearly opaque at edges
+      overlayGrad.addColorStop(0.5, 'rgba(0,0,0,0.35)');
+      overlayGrad.addColorStop(0.75, 'rgba(0,0,0,0.6)');
+      overlayGrad.addColorStop(1, 'rgba(0,0,0,0.85)');     // Nearly opaque at edges
       ctx.fillStyle = overlayGrad;
       ctx.fillRect(0, 0, W, H);
 
@@ -163,7 +163,7 @@ export function InteractiveBackground() {
         // Brightness near mouse
         const nd = Math.hypot(p.x - mx, p.y - my);
         const bright = nd < 250 ? (1 - nd / 250) * 0.35 : 0;
-        const a = Math.min(p.alpha + bright, 0.65);
+        const a = Math.min(p.alpha + bright, 0.8);
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
@@ -193,10 +193,20 @@ export function InteractiveBackground() {
   }, [initParticles]);
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-0"
-      aria-hidden="true"
-    />
+    <>
+      {/* Fallback gradient for mobile / no-JS */}
+      <div
+        className="fixed inset-0 z-0 pointer-events-none"
+        style={{
+          background: 'linear-gradient(135deg, #080810, #0a0d1a 50%, #060814)',
+        }}
+        aria-hidden="true"
+      />
+      <canvas
+        ref={canvasRef}
+        className="fixed inset-0 pointer-events-none z-0"
+        aria-hidden="true"
+      />
+    </>
   );
 }
