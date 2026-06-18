@@ -1,6 +1,5 @@
 // app/[locale]/experience/page.tsx
 import type { Metadata } from 'next';
-import { getTranslations } from 'next-intl/server';
 import { resumeData } from '@/lib/resume';
 import { ExperienceSection } from '@/components/experience/ExperienceSection';
 
@@ -25,11 +24,10 @@ export default async function ExperiencePage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const t = await getTranslations({ locale });
 
   return (
     <div className="max-w-4xl mx-auto px-6 sm:px-8 py-20">
-      <ExperienceSection data={resumeData} locale={locale} t={t} />
+      <ExperienceSection data={resumeData} locale={locale} />
     </div>
   );
 }

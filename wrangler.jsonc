@@ -4,25 +4,11 @@
 	"name": "portfolio",
 	"compatibility_date": "2026-04-15",
 	"compatibility_flags": [
-		"nodejs_compat",
-		"global_fetch_strictly_public"
+		"nodejs_compat"
 	],
 	"assets": {
 		"directory": ".open-next/assets",
 		"binding": "ASSETS"
 	},
-	"services": [
-		{
-			// Self-reference service binding, the service name must match the worker name
-			// see https://opennext.js.org/cloudflare/caching
-			"binding": "WORKER_SELF_REFERENCE",
-			"service": "portfolio"
-		}
-	],
-	"workers_dev": true,
-	"images": {
-		// Enable image optimization
-		// see https://opennext.js.org/cloudflare/howtos/image
-		"binding": "IMAGES"
-	}
+	"workers_dev": true
 }

@@ -25,7 +25,15 @@ export default async function BlogPage({
 }) {
   const { locale } = await params;
   const t = await getTranslations({ locale });
-  const publishedPosts = blogPosts.filter((p) => p.published);
+  const publishedPosts = blogPosts
+    .filter((p) => p.published)
+    .map((p) => ({
+      slug: p.slug,
+      title: t(p.titleKey),
+      summary: t(p.summaryKey),
+      date: p.date,
+      tags: p.tags,
+    }));
 
   return (
     <div className="max-w-3xl mx-auto px-6 sm:px-8 py-20">

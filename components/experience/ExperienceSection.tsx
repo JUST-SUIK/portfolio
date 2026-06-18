@@ -16,10 +16,9 @@ import {
 interface ExperienceSectionProps {
   data: ResumeData;
   locale: string;
-  t: (key: string) => string;
 }
 
-export function ExperienceSection({ data, locale, t }: ExperienceSectionProps) {
+export function ExperienceSection({ data, locale }: ExperienceSectionProps) {
   const isZh = locale === 'zh';
 
   return (

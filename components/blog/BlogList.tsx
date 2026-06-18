@@ -3,11 +3,18 @@
 import Link from 'next/link';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { AnimatedSection } from '@/components/ui/AnimatedSection';
-import type { BlogPost } from '@/lib/blog';
-import { Calendar, Tag } from 'lucide-react';
+import { Calendar } from 'lucide-react';
+
+interface BlogPostDisplay {
+  slug: string;
+  title: string;
+  summary: string;
+  date: string;
+  tags: string[];
+}
 
 interface BlogListProps {
-  posts: BlogPost[];
+  posts: BlogPostDisplay[];
   locale: string;
 }
 
@@ -47,10 +54,10 @@ export function BlogList({ posts, locale }: BlogListProps) {
                 </div>
               </div>
               <h2 className="text-lg font-bold text-text-primary tracking-tight mb-1.5 group-hover:text-accent-blue transition-colors">
-                {post.titleKey.split('.').pop()}
+                {post.title}
               </h2>
               <p className="text-sm text-text-secondary line-clamp-2">
-                {post.summaryKey.split('.').pop()}
+                {post.summary}
               </p>
             </GlassCard>
           </Link>
